@@ -31,8 +31,8 @@ def henkelforwarder(azeventgrid: func.EventGridEvent):
         storage_account_name = topic.split("/")[8]
         logging.info(f"Storage Account Name: {storage_account_name}")
 
-        # Access the blob URL from the `url` field under `data`
-        blob_url = event_data.get("data", {}).get("url")  # Ensure to access the correct nested structure
+        # Access the blob URL from the `url` field
+        blob_url = event_data.get("url")
         if not blob_url:
             logging.error("No blob URL found in the event data.")
             return

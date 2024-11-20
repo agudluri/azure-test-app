@@ -12,15 +12,15 @@ SAS_TOKEN = os.getenv('SAS_TOKEN')
 HTTP_ENDPOINT = os.getenv('HTTP_ENDPOINT')
 API_KEY = os.getenv('API_KEY')
 
-# Validate critical environment variables
-if not SAS_TOKEN or not HTTP_ENDPOINT or not API_KEY:
-    raise ValueError("Missing required environment variables: SAS_TOKEN, HTTP_ENDPOINT, or API_KEY")
-
 app = func.FunctionApp()
 
 @app.event_grid_trigger(arg_name="azeventgrid")
 def henkelforwarder(azeventgrid: func.EventGridEvent):
     logging.info('Python EventGrid trigger processed an event')
+
+    # Validate critical environment variables
+    if not SAS_TOKEN or not HTTP_ENDPOINT or not API_KEY:
+        raise ValueError("Missing required environment variables: SAS_TOKEN, HTTP_ENDPOINT, or API_KEY")
 
     try:
         # Parse the Event Grid event
